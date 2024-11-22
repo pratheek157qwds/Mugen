@@ -9,12 +9,12 @@ module.exports = {
     {
       name: 'add',
       description: 'Add a new banned word',
-      type: 1, // Subcommand
+      type: 1,
       options: [
         {
           name: 'word',
           description: 'The word to ban',
-          type: 3, // String
+          type: 3,
           required: true,
         },
       ],
@@ -22,22 +22,22 @@ module.exports = {
     {
       name: 'list',
       description: 'List all banned words',
-      type: 1, // Subcommand
+      type: 1,
     },
     {
       name: 'clear',
       description: 'Clear all banned words',
-      type: 1, // Subcommand
+      type: 1,
     },
     {
       name: 'remove',
       description: 'Remove a banned word',
-      type: 1, // Subcommand
+      type: 1,
       options: [
         {
           name: 'word',
           description: 'The banned word to remove',
-          type: 3, // String
+          type: 3,
           required: true,
         },
       ],
@@ -46,7 +46,7 @@ module.exports = {
 
   async run(client, interaction) {
     const subcommand = interaction.options.getSubcommand();
-    const guildId = interaction.guild.id; // Get the current guild ID
+    const guildId = interaction.guild.id;
 
     if (subcommand === 'add') {
       const word = interaction.options.getString('word');

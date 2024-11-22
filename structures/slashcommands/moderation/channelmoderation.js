@@ -86,10 +86,8 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
 
         if (subcommand === "delete") {
-            // Delete Channel Subcommand
             const channel = interaction.options.getChannel("channel");
 
-            // Check permissions
             if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
                 return interaction.reply({ content: "❌ I don't have permission to manage channels.", ephemeral: true });
             }
@@ -99,17 +97,14 @@ module.exports = {
             }
 
             try {
-                // Delete the channel
                 await channel.delete();
 
-                // Reply to the user with an embed
                 const replyEmbed = new EmbedBuilder()
                     .setColor("#ff0000")
                     .setDescription(`✅ Channel deleted successfully: ${channel.name}`)
                     .setTimestamp();
                 await interaction.reply({ embeds: [replyEmbed] });
 
-                // Log the delete action (if log channel is set up)
                 const logChannelId = await db.get(`log_bot_${interaction.guild.id}`);
                 if (logChannelId) {
                     const logChannel = interaction.guild.channels.cache.get(logChannelId);
@@ -134,7 +129,6 @@ module.exports = {
             }
 
         } else if (subcommand === "info") {
-            // Channel Info Subcommand
             const channel = interaction.options.getChannel('channel');
 
             if (!interaction.guild) {
@@ -170,7 +164,6 @@ module.exports = {
             try {
                 const channelTypeText = ChannelType[channel.type];
 
-                // Fetch @everyone overwrites and format permissions
                 const everyoneOverwrites = channel.permissionOverwrites.cache.get(interaction.guild.roles.everyone.id);
                 let permissionsList = "None";
                 if (everyoneOverwrites) {
@@ -209,15 +202,12 @@ module.exports = {
             }
 
         } else if (subcommand === "slowmode") {
-            // Channel Slowmode Subcommand
             const duration = interaction.options.getInteger('duration');
 
-            // Check if the bot has permission to manage channels
             if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
                 return interaction.reply({ content: 'Error: Bot permission denied. Enable **Manage Channels** permission in `Server Settings > Roles` to use this command.', ephemeral: true });
             }
 
-            // Check if the user has permission to manage channels
             if (!config.developers.includes(interaction.user.id) && !interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
                 return interaction.reply({ content: "You don't have permission to use this command.", ephemeral: true });
             }
@@ -227,13 +217,13 @@ module.exports = {
                     await interaction.channel.setRateLimitPerUser(0);
                     const embed = new EmbedBuilder()
                         .setDescription('Successfully disabled slowmode for the current channel.')
-                        .setColor(config.embedColor || `#00ff00`); // Use 'RANDOM' if config.embedColor is not defined
+                        .setColor(config.embedColor || `#00ff00`);
                     await interaction.reply({ embeds: [embed] });
                 } else {
                     await interaction.channel.setRateLimitPerUser(duration);
                     const embed = new EmbedBuilder()
                         .setDescription(`Successfully set the current channel's rate limit to **${duration}** second(s).`)
-                        .setColor(config.embedColor || `#00ff00`); // Use 'RANDOM' if config.embedColor is not defined
+                        .setColor(config.embedColor || `#00ff00`);
                     await interaction.reply({ embeds: [embed] });
                 }
             } catch (error) {
@@ -242,10 +232,8 @@ module.exports = {
             }
 
         } else if (subcommand === "clone") {
-            // Clone Channel Subcommand
             const channel = interaction.options.getChannel("channel");
 
-            // Check permissions
             if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
                 return interaction.reply({ content: "❌ I don't have permission to manage channels.", ephemeral: true });
             }
@@ -255,24 +243,20 @@ module.exports = {
             }
 
             try {
-                // Clone the channel, preserving its position
                 const newChannel = await channel.clone({ position: channel.rawPosition });
 
-                // Send a notification in the new channel
                 const embed = new EmbedBuilder()
                     .setColor("#f7f7f7")
                     .setDescription(`Channel cloned by ${interaction.user.username}`)
                     .setTimestamp();
                 await newChannel.send({ embeds: [embed] });
 
-                // Reply to the user with an embed
                 const replyEmbed = new EmbedBuilder()
                     .setColor("#00ff00")
                     .setDescription(`✅ Channel cloned successfully: ${newChannel}`)
                     .setTimestamp();
                 await interaction.reply({ embeds: [replyEmbed] });
 
-                // Log the clone action (if log channel is set up)
                 const logChannelId = await db.get(`log_bot_${interaction.guild.id}`);
                 if (logChannelId) {
                     const logChannel = interaction.guild.channels.cache.get(logChannelId);
@@ -298,11 +282,9 @@ module.exports = {
             }
 
         } else if (subcommand === "rename") {
-            // Rename Channel Subcommand
             const channel = interaction.options.getChannel("channel");
             const newName = interaction.options.getString("new_name");
 
-            // Check permissions
             if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
                 return interaction.reply({ content: "❌ I don't have permission to manage channels.", ephemeral: true });
             }
@@ -312,17 +294,14 @@ module.exports = {
             }
 
             try {
-                // Rename the channel
                 await channel.setName(newName);
 
-                // Reply to the user with an embed
                 const replyEmbed = new EmbedBuilder()
                     .setColor("#00ff00")
                     .setDescription(`✅ Channel renamed successfully: ${channel}`)
                     .setTimestamp();
                 await interaction.reply({ embeds: [replyEmbed] });
 
-                // Log the rename action (if log channel is set up)
                 const logChannelId = await db.get(`log_bot_${interaction.guild.id}`);
                 if (logChannelId) {
                     const logChannel = interaction.guild.channels.cache.get(logChannelId);
