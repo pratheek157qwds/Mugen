@@ -8,7 +8,7 @@ module.exports = {
             name: 'name',
             description: 'Name of the video to search for',
             required: true,
-            type: 3, // 3 corresponds to ApplicationCommandOptionType.STRING
+            type: 3,
         },
     ],
     /**
@@ -25,7 +25,7 @@ module.exports = {
                 {
                     title: `YouTube Search Results`,
                     description: `Click [here](${link}) to see the search results for: \`${name}\``,
-                    color: 0xFF5733, // Orange color
+                    color: 0xFF5733,
                     fields: [
                         {
                             name: 'Search Query',

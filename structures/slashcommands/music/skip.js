@@ -13,13 +13,10 @@ module.exports = {
             return interaction.reply({ content: 'There is no track currently playing.', ephemeral: true });
         }
 
-        // Get current track info
         const currentTrack = player.current.info;
 
-        // Stop the player
         player.stop();
 
-        // Create the embed
         const embed = new EmbedBuilder()
             .setColor('#2f3136')
             .setTitle('Track Skipped')
@@ -29,7 +26,6 @@ module.exports = {
                 { name: 'Duration', value: `${Math.floor(currentTrack.length / 60000)} minutes` } // Display duration in minutes
             );
 
-        // Send the response
         return interaction.reply({ embeds: [embed] });
     },
 };

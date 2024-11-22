@@ -58,7 +58,7 @@ module.exports = {
           const suggestionType = modalInteraction.fields.getTextInputValue('suggestionType');
           const suggestionDetails = modalInteraction.fields.getTextInputValue('suggestionDetails');
 
-          const botOwnerId = '744557711513092098'; // Replace with the actual bot owner's ID
+          const botOwnerId = '744557711513092098';
           const botOwner = await client.users.fetch(botOwnerId);
 
           if (botOwner) {

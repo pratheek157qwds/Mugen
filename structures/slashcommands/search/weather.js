@@ -21,7 +21,7 @@ module.exports = {
 
         weather.find({ search: country, degreeType: 'C' }, function (error, result) {
             if (error) {
-                console.log(error); // Log any errors from weather-js
+                console.log(error);
                 return interaction.reply({ content: 'Something went wrong while fetching the weather.', ephemeral: true });
             }
 

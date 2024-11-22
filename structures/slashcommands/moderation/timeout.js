@@ -44,7 +44,6 @@ module.exports = {
             "Stay in your lane! You can't use this command."
         ];
 
-        // Check if the user has the moderate members permission
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
             const abusiveReply = abusiveReplies[Math.floor(Math.random() * abusiveReplies.length)];
             return interaction.reply({
@@ -57,14 +56,11 @@ module.exports = {
             });
         }
 
-        // Acknowledge the interaction immediately
         await interaction.deferReply();
 
         try {
-            // Fetch the bot's member object
             const botMember = await interaction.guild.members.fetch(client.user.id);
 
-            // Check if bot has necessary permissions
             if (!botMember.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
                 return interaction.followUp({
                     embeds: [{
@@ -75,7 +71,6 @@ module.exports = {
                 });
             }
 
-            // Check if the member is moderatable by the bot
             if (!member || !member.moderatable) {
                 return interaction.followUp({
                     embeds: [{
@@ -86,10 +81,8 @@ module.exports = {
                 });
             }
 
-            // Set the timeout duration in milliseconds
             const timeoutDuration = duration * 60 * 1000;
 
-            // Timeout the member
             await member.timeout(timeoutDuration, reason);
             await interaction.followUp({
                 embeds: [{

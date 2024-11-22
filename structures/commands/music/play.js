@@ -12,12 +12,10 @@ module.exports = {
      * @returns 
      */
     run: async (client, message, args) => {
-        // Check if the user provided a query
         if (!args.length) {
             return message.reply('You need to provide a query to search for.');
         }
 
-        // Check if the user is in a voice channel
         const { channel } = message.member.voice;
         if (!channel) {
             return message.reply('You need to be in a voice channel to use this command.');

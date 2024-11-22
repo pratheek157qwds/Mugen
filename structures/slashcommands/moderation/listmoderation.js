@@ -32,7 +32,7 @@ module.exports = {
   ],
 
   run: async (client, interaction) => {
-    await interaction.guild.members.fetch(); // Ensure all members are cached
+    await interaction.guild.members.fetch();
 
     const subcommand = interaction.options.getSubcommand();
 
@@ -188,13 +188,13 @@ module.exports = {
     }
 
     if (subcommand === 'emojis') {
-      await interaction.guild.emojis.fetch(); // Ensure all emojis are cached
+      await interaction.guild.emojis.fetch();
 
       const emojis = interaction.guild.emojis.cache.map(emoji => ({
         name: emoji.name,
         id: emoji.id,
         url: emoji.url,
-        emoji: emoji.toString(), // Get the emoji as a string
+        emoji: emoji.toString(),
       }));
 
       const totalEmojis = emojis.length;
@@ -235,7 +235,6 @@ module.exports = {
         { flag: PermissionsBitField.Flags.ViewAuditLog, label: 'View Audit Log' },
         { flag: PermissionsBitField.Flags.ManageWebhooks, label: 'Manage Webhooks' },
         { flag: PermissionsBitField.Flags.ManageEmojisAndStickers, label: 'Manage Emojis and Stickers' },
-        // Add other permissions as needed
       ];
 
       const getHighestPermission = (permissions) => {

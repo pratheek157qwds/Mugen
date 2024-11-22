@@ -1,5 +1,5 @@
 const { EmbedBuilder, PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
-const config = require('../../configuration/index'); // Make sure config.json exists and has the developer IDs
+const config = require('../../configuration/index');
 
 module.exports = {
     name: 'clear',
@@ -16,7 +16,6 @@ module.exports = {
     ],
 
     run: (client, interaction) => {
-        // Check if the user is a developer (read from config) or has the Manage Messages permission
         if (!config.developers.includes(interaction.user.id) &&
             !interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages) &&
             !interaction.member.roles.cache.some((r) => r.name === "Deletes")) {
@@ -28,7 +27,6 @@ module.exports = {
 
         const amount = interaction.options.getInteger('amount');
 
-        // Input Validation: Ensure amount is within allowed limits
         if (amount < 1 || amount > 100) {
             return interaction.reply({
                 content: 'Please enter a number between 1 and 100.',

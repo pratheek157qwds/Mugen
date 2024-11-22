@@ -9,17 +9,15 @@ module.exports = {
             name: "userid",
             description: "User ID of the person to unban",
             required: true,
-            type: ApplicationCommandOptionType.String, // Change to String for User ID input
+            type: ApplicationCommandOptionType.String,
         },
     ],
 
     run: async (client, interaction) => {
-        // Check if the bot has the "Ban Members" permission
         if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.BanMembers)) {
             return interaction.reply({ content: "I need the 'Ban Members' permission to unban users.", ephemeral: true });
         }
 
-        // Check if the user is the bot owner or has the "Ban Members" permission
         if (!config.developers.includes(interaction.user.id) && !interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
             return interaction.reply({ content: "You don't have permission to use this command.", ephemeral: true });
         }
@@ -28,10 +26,9 @@ module.exports = {
 
         try {
             await interaction.guild.bans.remove(userId);
-            interaction.reply({ content: `I have unbanned the user with ID ${userId}` }); // Explicitly mention user ID
+            interaction.reply({ content: `I have unbanned the user with ID ${userId}` });
         } catch (error) {
-            // If the unban fails
-            if (error.code === 10026) { // DiscordAPIError code for unknown ban
+            if (error.code === 10026) {
                 interaction.reply({ content: `User with ID ${userId} is not banned.`, ephemeral: true });
             } else {
                 console.error("Error unbanning user:", error); 

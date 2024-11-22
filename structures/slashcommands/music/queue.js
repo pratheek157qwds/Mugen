@@ -32,7 +32,6 @@ module.exports = {
             ]);
         }
 
-        // Calculate total duration in minutes
         const totalDuration = queue.reduce((acc, track) => acc + track.info.length, 0);
         const totalMinutes = Math.floor(totalDuration / 60000);
 

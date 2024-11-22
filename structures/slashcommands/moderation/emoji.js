@@ -55,7 +55,6 @@ module.exports = {
             let emojiUrl = interaction.options.getString('emoji').trim();
             const name = interaction.options.getString('name');
 
-            // If the emoji is already a custom emoji, extract the ID and check the file type
             if (emojiUrl.startsWith("<") && emojiUrl.endsWith(">")) {
                 const id = emojiUrl.match(/\d{15,}/g)[0];
 
@@ -66,7 +65,6 @@ module.exports = {
                     emojiUrl = `https://cdn.discordapp.com/emojis/${id}.png?quality=lossless`;
                 }
             } else if (/^[\u0000-\uFFFF]+$/.test(emojiUrl)) {
-                // Handle direct Unicode emojis
                 return interaction.reply({ content: "You can't add Unicode emojis directly, please use a custom emoji URL or ID.", ephemeral: true });
             }
 

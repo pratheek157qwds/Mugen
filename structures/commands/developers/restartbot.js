@@ -20,7 +20,7 @@ module.exports = {
 
         await message.reply("Restarting the bot...");
 
-        client.destroy(); // Disconnects the bot from Discord
-        process.exit(0); // Exits the process with status code 0, which can be used to trigger a restart
+        client.destroy();
+        process.exit(0);
     }
 };

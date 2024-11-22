@@ -14,7 +14,6 @@ module.exports = {
     run: async (client, message, args) => {
         const channel = message.guild.channels.cache.get(args[0]) || message.mentions.channels.first();
 
-        // Check if the selected channel is a voice channel
         if (!channel || (channel.type !== ChannelType.GuildVoice && channel.type !== ChannelType.GuildStageVoice)) {
             const embed = new EmbedBuilder()
                 .setColor(0xFF0000)
@@ -23,7 +22,6 @@ module.exports = {
             return message.reply({ embeds: [embed], ephemeral: true });
         }
 
-        // Check if the bot is currently in a voice channel
         const player = client.riffy.players.get(message.guild.id);
         if (!player || !player.connected) {
             const embed = new EmbedBuilder()
@@ -33,7 +31,6 @@ module.exports = {
             return message.reply({ embeds: [embed], ephemeral: true });
         }
 
-        // Check if the bot is already in the selected voice channel
         if (player.voiceChannel === channel.id) {
             const embed = new EmbedBuilder()
                 .setColor(0xFF0000)
@@ -42,7 +39,6 @@ module.exports = {
             return message.reply({ embeds: [embed], ephemeral: true });
         }
 
-        // Check if the bot has permission to connect to the selected voice channel
         const botMember = await message.guild.members.fetch(client.user.id);
         if (!botMember.permissions.has(PermissionsBitField.Flags.Connect) || !botMember.permissions.has(PermissionsBitField.Flags.Speak)) {
             const embed = new EmbedBuilder()
@@ -53,7 +49,6 @@ module.exports = {
         }
 
         try {
-            // Move the bot to the new voice channel
             player.setVoiceChannel(channel.id);
             const embed = new EmbedBuilder()
                 .setColor(0x00FF00)

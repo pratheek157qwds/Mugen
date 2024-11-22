@@ -15,12 +15,10 @@ module.exports = {
     ],
 
     run: async (client, interaction) => {
-        // Check if the bot has the Administrator permission
         if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) {
             return interaction.reply({ content: "**❌ I don't have sufficient permissions to execute this command.**", ephemeral: true });
         }
         
-        // Check if the user is a developer or has the Administrator permission
         if (!config.developers.includes(interaction.user.id) && !interaction.member?.permissions.has(PermissionsBitField.Flags.Administrator)) {
             return interaction.reply({ content: "**❌ You don't have permission to use this command.**", ephemeral: true });
         }
@@ -41,7 +39,7 @@ module.exports = {
             await interaction.reply({ embeds: [embed] });
 
             for (const [, member] of members) {
-                if (!member.roles.cache.has(role.id)) continue; // Skip if member doesn't have the role
+                if (!member.roles.cache.has(role.id)) continue;
                 try {
                     await member.roles.remove(role);
                     processedMembers++;
@@ -51,12 +49,11 @@ module.exports = {
                     if (processedMembers % 10 === 0) {
                         await interaction.editReply({ embeds: [embed] });
                     }
-                    await new Promise(resolve => setTimeout(resolve, rateLimitDelay)); // Rate limit handling
+                    await new Promise(resolve => setTimeout(resolve, rateLimitDelay));
                 } catch (memberError) {
-                    // Enhanced Error Handling
                     console.error(`Error removing role from ${member.user.tag}:`, memberError);
 
-                    if (memberError.code === 50013) { // "Missing Permissions" error
+                    if (memberError.code === 50013) {
                         embed.setDescription(`Finished attempting to remove role ${role}. I lack permissions to modify some members' roles.`);
                         embed.setColor("Yellow");
                         return await interaction.editReply({ embeds: [embed] });

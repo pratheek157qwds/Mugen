@@ -4,7 +4,7 @@ module.exports = {
     name: 'loop',
     description: 'Loop the current track or the entire queue',
     usage: '[none | song | queue]',
-    args: false, // Optional arguments
+    args: false,
 
     /**
      * @param {Client} client

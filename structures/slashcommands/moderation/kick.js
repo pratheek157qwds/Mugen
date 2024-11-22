@@ -37,7 +37,6 @@ module.exports = {
             "Stay in your lane! You can't use this command."
         ];
 
-        // Check if the user has the kick members permission
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
             const abusiveReply = abusiveReplies[Math.floor(Math.random() * abusiveReplies.length)];
             return interaction.reply({
@@ -50,14 +49,11 @@ module.exports = {
             });
         }
 
-        // Acknowledge the interaction immediately
         await interaction.deferReply();
 
         try {
-            // Fetch the bot's member object
             const botMember = await interaction.guild.members.fetch(client.user.id);
 
-            // Check if bot has necessary permissions
             if (!botMember.permissions.has(PermissionsBitField.Flags.KickMembers)) {
                 return interaction.followUp({
                     embeds: [{
@@ -68,7 +64,6 @@ module.exports = {
                 });
             }
 
-            // Check if the member is kickable by the bot
             if (!member || !member.kickable) {
                 return interaction.followUp({
                     embeds: [{
@@ -79,7 +74,6 @@ module.exports = {
                 });
             }
 
-            // Kick the member
             await member.kick(reason);
             await interaction.followUp({
                 embeds: [{

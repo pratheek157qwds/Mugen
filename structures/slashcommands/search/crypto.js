@@ -51,7 +51,7 @@ module.exports = {
             if (!supportedCoins.includes(coin) || !supportedCurrencies.includes(currency)) {
                 console.log(`Invalid coin or currency: coin - ${coin}, currency - ${currency}`);
 
-                const supportedCoinsList = supportedCoins.slice(0, 50).join(', ');  // Limit to first 50 coins to avoid too long message
+                const supportedCoinsList = supportedCoins.slice(0, 50).join(', ');
                 const supportedCurrenciesList = supportedCurrencies.join(', ');
 
                 const embed = new EmbedBuilder()
@@ -73,7 +73,6 @@ module.exports = {
 
             console.log('API response data:', data);
 
-            // Check if the coin and currency exist in the response
             if (!data[coin] || !data[coin][currency]) {
                 console.log(`Invalid coin or currency: coin - ${coin}, currency - ${currency}`);
                 return interaction.reply({ content: `Invalid coin or currency provided! Please check your inputs.`, ephemeral: true });

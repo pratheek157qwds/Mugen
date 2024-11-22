@@ -17,7 +17,6 @@ module.exports = {
     const query = interaction.options.getString('query');
     const user = interaction.user;
 
-    // Embed for the channel
     const channelEmbed = new EmbedBuilder()
       .setTitle('Report Submitted')
       .setDescription(`Your report has been submitted. Thank you for reporting!`)
@@ -30,7 +29,6 @@ module.exports = {
 
     await interaction.reply({ embeds: [channelEmbed], ephemeral: true });
 
-    // Notify the user in DM
     try {
       await user.send('Your report has been sent to the developers. Thank you for reporting!');
     } catch (err) {

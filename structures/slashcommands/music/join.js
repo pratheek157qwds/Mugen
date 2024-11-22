@@ -28,7 +28,7 @@ module.exports = {
                 await interaction.reply({ embeds: [embed] });
 
                 player.once('trackEnd', async () => {
-                    player.destroy(); // Destroy the current player
+                    player.destroy();
 
                     const newPlayer = client.riffy.createConnection({
                         guildId: interaction.guild.id,
@@ -44,7 +44,7 @@ module.exports = {
                     await interaction.followUp({ embeds: [joinEmbed] });
                 });
             } else {
-                player.destroy(); // Destroy the current player
+                player.destroy();
 
                 const newPlayer = client.riffy.createConnection({
                     guildId: interaction.guild.id,

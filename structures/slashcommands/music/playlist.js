@@ -251,7 +251,7 @@ module.exports = {
 
                     case 'play': {
             const playlistName = interaction.options.getString('playlist_name');
-            const shuffle = interaction.options.getBoolean('shuffle') || false; // Get the shuffle option
+            const shuffle = interaction.options.getBoolean('shuffle') || false;
             const playlists = await db.get(playlistsKey) || {};
 
             if (!playlists[playlistName]) {
@@ -291,7 +291,7 @@ module.exports = {
             }
 
             if (shuffle) {
-                player.queue.shuffle(); // Shuffle the queue if shuffle is true
+                player.queue.shuffle();
             }
 
             const playlistEmbed = new EmbedBuilder()

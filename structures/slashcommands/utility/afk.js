@@ -10,12 +10,12 @@ module.exports = {
     {
       name: 'set',
       description: 'Set your AFK status',
-      type: 1, // Subcommand
+      type: 1,
       options: [
         {
           name: 'reason',
           description: 'The reason for being AFK',
-          type: 3, // String
+          type: 3,
           required: true,
         },
       ],
@@ -23,12 +23,12 @@ module.exports = {
     {
       name: 'list',
       description: 'List all AFK users',
-      type: 1, // Subcommand
+      type: 1,
     },
     {
       name: 'remove',
       description: 'Remove your AFK status',
-      type: 1, // Subcommand
+      type: 1,
     },
   ],
 

@@ -37,13 +37,13 @@ function formatUptime(uptime) {
 
 function getColorBasedOnUptime(uptime) {
     const totalSeconds = uptime / 1000;
-    if (totalSeconds < 60) { // less than a minute
-        return 0xff0000; // Red change according to your colour
-    } else if (totalSeconds < 3600) { // less than an hour
-        return 0xffa500; // Orange change according to your colour
-    } else if (totalSeconds < 86400) { // less than a day
-        return 0xffff00; // Yellow change according to your colour
-    } else { // more than a day
-        return 0x00ff00; // Green change according toyour colour
+    if (totalSeconds < 60) {
+        return 0xff0000;
+    } else if (totalSeconds < 3600) {
+        return 0xffa500;
+    } else if (totalSeconds < 86400) {
+        return 0xffff00;
+    } else {
+        return 0x00ff00;
     }
 }

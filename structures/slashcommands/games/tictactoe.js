@@ -6,7 +6,7 @@ module.exports = {
     options: [{
         name: 'opponent',
         description: 'The user you want to challenge',
-        type: 6, // USER option type
+        type: 6,
         required: true
     }],
     run: async (client, interaction) => {
@@ -59,7 +59,7 @@ module.exports = {
 
                 if (checkWin(board, currentPlayer.id === interaction.user.id ? '❌' : '⭕')) {
                     gameOver = true;
-                    await btn.update({ content: `🎉 ${currentPlayer} wins! 🎉`, components: createGameButtons(board) }); // Disable all buttons
+                    await btn.update({ content: `🎉 ${currentPlayer} wins! 🎉`, components: createGameButtons(board) });
                 } else if (checkTie(board)) {
                     gameOver = true;
                     await btn.update({ content: "It's a tie! 🤝", components: createGameButtons(board) });
@@ -73,8 +73,6 @@ module.exports = {
                 if (reason === 'time' && !gameOver) {
                     btn.message.edit({ content: 'Game timed out.', embeds: [], components: [] });
                 }
-
-                // Stop the timeout if the game is over
                 challengeCollector.stop();
             }); 
         });

@@ -4,7 +4,7 @@ async function retry(fn, retries = 3, delay = 1000) {
             return await fn();
         } catch (error) {
             if (attempt < retries) {
-                if (error.status === 429) { // Check for rate limit
+                if (error.status === 429) {
                     const retryAfter = error.headers.get('retry-after');
                     const backoffDelay = retryAfter ? retryAfter * 1000 : delay * attempt;
                     console.warn(`Rate limited. Retrying in ${backoffDelay / 1000} seconds...`);

@@ -7,7 +7,7 @@ module.exports = {
         {
             name: 'mode',
             description: 'The loop mode to set (1: none, 2: track, 3: queue)',
-            type: 4, // 4 is the type for INTEGER in discord.js
+            type: 4,
             required: true,
             choices: [
                 { name: 'None', value: 1 },

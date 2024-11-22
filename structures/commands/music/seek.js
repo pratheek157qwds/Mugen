@@ -12,7 +12,6 @@ module.exports = {
      * @returns 
      */
     run: async (client, message, args) => {
-        // Check if the user provided a time
         if (!args.length) {
             const noArgsEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
@@ -23,7 +22,6 @@ module.exports = {
             return message.channel.send({ embeds: [noArgsEmbed] });
         }
 
-        // Check if the user is in a voice channel
         const { channel } = message.member.voice;
         if (!channel) {
             const noVoiceChannelEmbed = new EmbedBuilder()
@@ -37,10 +35,8 @@ module.exports = {
 
         const time = parseInt(args[0], 10);
         
-        // Fetch the player's connection from the current guild
-        const player = client.riffy.players.get(message.guild.id); // Assuming players are managed in a Map or similar.
+        const player = client.riffy.players.get(message.guild.id);
 
-        // Check if player exists and is currently playing
         if (!player || !player.playing) {
             const noTrackEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
@@ -53,7 +49,6 @@ module.exports = {
 
         const currentTrack = player.current;
 
-        // Check if the seek time is within the track duration
         if (time > currentTrack.info.length / 1000) {
             const invalidTimeEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
@@ -64,7 +59,6 @@ module.exports = {
             return message.channel.send({ embeds: [invalidTimeEmbed] });
         }
 
-        // Seek to the specified time
         player.seek(time * 1000);
 
         const seekEmbed = new EmbedBuilder()

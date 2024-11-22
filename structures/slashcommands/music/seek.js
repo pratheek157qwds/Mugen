@@ -21,10 +21,8 @@ module.exports = {
     run: async (client, interaction) => {
         const time = interaction.options.getInteger('time');
 
-        // Fetch the player connection for the guild
-        const player = client.riffy.players.get(interaction.guild.id); // Adjust this if your client uses a different method for managing players
+        const player = client.riffy.players.get(interaction.guild.id);
 
-        // Check if player exists and is currently playing
         if (!player || !player.playing) {
             const noTrackEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
@@ -35,10 +33,8 @@ module.exports = {
             return interaction.reply({ embeds: [noTrackEmbed], ephemeral: true });
         }
 
-        // Get the currently playing track
         const currentTrack = player.current;
 
-        // Check if the seek time is valid
         if (time > currentTrack.info.length / 1000) {
             const invalidTimeEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
@@ -49,10 +45,8 @@ module.exports = {
             return interaction.reply({ embeds: [invalidTimeEmbed], ephemeral: true });
         }
 
-        // Perform the seek operation
         player.seek(time * 1000);
 
-        // Respond with success embed
         const seekEmbed = new EmbedBuilder()
             .setColor('#2f3136')
             .setTitle('Seek Successful')

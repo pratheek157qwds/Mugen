@@ -49,7 +49,6 @@ module.exports = {
             "Stay in your lane! You can't use this command."
         ];
 
-        // Check if the user has the manage roles permission
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageRoles)) {
             const abusiveReply = abusiveReplies[Math.floor(Math.random() * abusiveReplies.length)];
             return interaction.reply({
@@ -62,14 +61,11 @@ module.exports = {
             });
         }
 
-        // Acknowledge the interaction immediately
         await interaction.deferReply();
 
         try {
-            // Fetch the bot's member object
             const botMember = await interaction.guild.members.fetch(client.user.id);
 
-            // Check if bot has necessary permissions
             if (!botMember.permissions.has(PermissionsBitField.Flags.ManageRoles)) {
                 return interaction.followUp({
                     embeds: [{
@@ -79,7 +75,6 @@ module.exports = {
                     }]
                 });
             }if (action === 'view') {
-                // View the role permissions
                 const permissionsArray = role.permissions.toArray();
                 const permissionsList = permissionsArray.map(permission => `\`${permission}\``).join('\n');
                 return interaction.followUp({

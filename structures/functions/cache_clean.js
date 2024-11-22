@@ -1,6 +1,5 @@
 const client = require("../client");
 
-// Common function to reload a command
 const reload_command = async (collection, path, name) => {
     const command = collection.get(name);
 

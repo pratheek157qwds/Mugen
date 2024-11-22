@@ -1,19 +1,16 @@
 const { Client, ApplicationCommandOptionType, PermissionsBitField, EmbedBuilder, CommandInteraction, ButtonStyle, ButtonBuilder, ActionRowBuilder, ChannelType } = require("discord.js");
 const config = require("../../configuration/index");
 const moment = require("moment");
-// Assuming you've set the locale globally: moment.locale('en'); 
 
 module.exports = {
     name: "server-info",
     description: "Displays server information",
 
     run: async (client, interaction) => {
-        // Check if the bot has permission to send messages
         if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.SendMessages)) {
             return interaction.reply({ content: "I don't have permission to send messages in this channel.", ephemeral: true });
         }
         
-        // Check if the user has permission to send messages
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.SendMessages)) {
             return interaction.reply({ content: "You don't have permission to use this command.", ephemeral: true });
         }
@@ -28,7 +25,7 @@ module.exports = {
                     new ButtonBuilder()
                         .setLabel('Server Support')
                         .setStyle(ButtonStyle.Link)
-                        .setURL(`https://google.com`) // Replace with your actual support link
+                        .setURL(`https://google.com`)
                 );
 
             const embed = new EmbedBuilder()

@@ -15,7 +15,6 @@ module.exports = {
   ],
 
   run: async (client, interaction) => {
-    // Permission checks
     if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) {
       return interaction.reply({ content: "**❌ I don't have sufficient permissions to execute this command.**", ephemeral: true });
     }
@@ -27,9 +26,9 @@ module.exports = {
     try {
       const role = interaction.options.getRole("role");
       const startTime = Date.now();
-      const members = await interaction.guild.members.fetch(); // Fetch all members
+      const members = await interaction.guild.members.fetch();
       const totalMembers = members.size;
-      const rateLimitDelay = 10000 / 30; // Discord's rate limit is around 30 requests per 10 seconds
+      const rateLimitDelay = 10000 / 30;
       let processedMembers = 0;
 
       const embed = new EmbedBuilder()
@@ -53,7 +52,6 @@ module.exports = {
           await new Promise(resolve => setTimeout(resolve, rateLimitDelay)); 
         } catch (memberError) {
           console.error(`Error adding role to ${member.user.tag}:`, memberError);
-          // You can add more specific error handling here if needed.
         }
       }
 

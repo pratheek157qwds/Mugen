@@ -31,7 +31,7 @@ module.exports = {
                 await message.reply({ embeds: [embed] });
 
                 player.once('trackEnd', async () => {
-                    player.destroy(); // Destroy the current player
+                    player.destroy();
 
                     const newPlayer = client.riffy.createConnection({
                         guildId: message.guild.id,
@@ -47,7 +47,7 @@ module.exports = {
                     await message.channel.send({ embeds: [joinEmbed] });
                 });
             } else {
-                player.destroy(); // Destroy the current player
+                player.destroy();
 
                 const newPlayer = client.riffy.createConnection({
                     guildId: message.guild.id,

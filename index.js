@@ -13,7 +13,6 @@ const { runGeminiPro, runGeminiVision, geminiApiKeys } = require('./gemini.js');
 let apiCallCount = 0;
 let currentKeyIndex = 0;
 
-// Global error handlers
 process.on('unhandledRejection', (error) => {
     console.error('Unhandled promise rejection:', error);
     logger("Unhandled promise rejection", "error");
@@ -44,7 +43,6 @@ const client = new Client({
 client.commands = new Collection();
 client.db = db;
 
-// Load your command files and other setup here
 
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -54,7 +52,6 @@ client.on("messageCreate", async (message) => {
     try {
         if (message.author.bot) return;
 
-        // Counting Game Logic (only in guilds)
         if (message.guild) {
             let counter = await client.db.get(`guild_${message.guild.id}.counter`);
             if (!counter) {
@@ -84,12 +81,11 @@ client.on("messageCreate", async (message) => {
             message.react('✅');
         }
 
-        // Gemini API Logic
         const authorizedUsers = process.env.AUTHORIZED_USERS?.split(',');
         const authorizedChannels = process.env.AUTHORIZED_CHANNELS?.split(',');
 
         if (message.channel.type === ChannelType.DM && authorizedUsers?.includes(message.author.id)) {
-            // ... (Gemini Pro API response generation) ...
+           
         }
 
         if (message.channel.type === ChannelType.GuildText && authorizedChannels?.includes(message.channel.id)) {
@@ -102,7 +98,6 @@ client.on("messageCreate", async (message) => {
             let localPath = null;
             let mimeType = null;
 
-            // ... (Gemini Vision or Gemini Pro API response generation based on attachment) ...
         }
     } catch (error) {
         console.error(error);
@@ -118,7 +113,6 @@ function splitResponse(response) {
     }
     return chunks;  
 }
-// ... Sharding and database connection logic ...
 
 if (config.sharding) {
         const manager = new ShardingManager("./structures/client.js", { token: config.client_token, totalShards: "auto" });

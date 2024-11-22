@@ -8,12 +8,10 @@ module.exports = {
     description: "Recreates a channel, clearing all messages",
     
     run: async (client, interaction) => {
-        // Check if the bot has the "Manage Channels" permission
         if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
             return interaction.reply({ content: "❌ I don't have permission to manage channels.", ephemeral: true });
         }
         
-        // Check if the user is the bot owner or has the "Manage Channels" permission
         if (!config.developers.includes(interaction.user.id) && !interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
             return interaction.reply({ content: "❌ You don't have permission to use this command.", ephemeral: true });
         }
@@ -21,10 +19,8 @@ module.exports = {
         const channel = interaction.channel;
 
         try {
-            // Clone the channel, preserving its position
             const newChannel = await channel.clone({ position: channel.rawPosition });
 
-            // Send a notification in the new channel
             const embed = new EmbedBuilder()
                 .setColor("#f7f7f7")
                 .setDescription(`Channel nuked by ${interaction.user.username}`)
@@ -32,7 +28,6 @@ module.exports = {
                 .setTimestamp();
             await newChannel.send({ embeds: [embed] });
 
-            // Log the nuke action (if log channel is set up)
             const logChannelId = await db.get(`log_bot_${interaction.guild.id}`);
             if (logChannelId) {
                 const logChannel = interaction.guild.channels.cache.get(logChannelId);
@@ -51,7 +46,6 @@ module.exports = {
                 }
             }
 
-            // Delete the original channel
             await channel.delete();
 
         } catch (error) {

@@ -18,7 +18,7 @@ const client = new Client({
 });
 
 const spotify = new Spotify({
-    clientId: "8a3f5cd01b79442ca94a4181c1a755a8", // https://developer.spotify.com/
+    clientId: "8a3f5cd01b79442ca94a4181c1a755a8",
     clientSecret: "405be86c44f34b6a808e1e5c965048bb"
 });
 
@@ -32,7 +32,7 @@ client.riffy = new Riffy(client, nodes, {
         if (guild) guild.shard.send(payload);
     },
     defaultSearchPlatform: "ytmsearch",
-    restVersion: "v4", //can change if you want to use v3 lavalink
+    restVersion: "v4",
     plugins: [spotify]
 });
 

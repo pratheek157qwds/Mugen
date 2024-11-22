@@ -16,7 +16,6 @@ module.exports = {
         const player = client.riffy.players.get(message.guild.id);
         const voiceChannel = message.member.voice.channel;
 
-        // Check if the user is in a voice channel
         if (!voiceChannel) {
             const embed = new EmbedBuilder()
                 .setColor(0x2f3136)
@@ -25,7 +24,6 @@ module.exports = {
             return message.reply({ embeds: [embed] });
         }
 
-        // Check if the bot is in the same voice channel as the user
         if (player && player.voiceChannel !== voiceChannel.id) {
             const embed = new EmbedBuilder()
                 .setColor(0x2f3136)
@@ -34,7 +32,6 @@ module.exports = {
             return message.reply({ embeds: [embed] });
         }
 
-        // If the bot isn't connected to a player
         if (!player) {
             const embed = new EmbedBuilder()
                 .setColor(0x2f3136)
@@ -43,7 +40,6 @@ module.exports = {
             return message.reply({ embeds: [embed] });
         }
 
-        // Destroy the player and disconnect immediately
         player.destroy(); 
 
         const embed = new EmbedBuilder()

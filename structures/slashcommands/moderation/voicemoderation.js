@@ -56,8 +56,7 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
 
         if (subcommand === 'list') {
-            // vclist subcommand logic
-            const clientColor = client.color || '#FFFFFF'; // Set a default color if client.color is undefined
+            const clientColor = client.color || '#FFFFFF';
 
             let targetChannel = interaction.member.voice.channel;
             const channelOption = interaction.options.getChannel('channel');
@@ -153,7 +152,6 @@ module.exports = {
                 });
             }
         } else if (subcommand === 'move') {
-            // voicemove subcommand logic
             const member = interaction.options.getMember('member');
             const channel = interaction.options.getChannel('channel');
 

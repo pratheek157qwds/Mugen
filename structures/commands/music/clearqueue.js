@@ -21,7 +21,7 @@ module.exports = {
             return message.reply({ embeds: [embed] });
         }
 
-        player.queue.clear(); // Clears the queue while keeping the current song
+        player.queue.clear();
 
         const embed = new EmbedBuilder()
             .setColor('#2f3136')

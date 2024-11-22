@@ -19,7 +19,6 @@ module.exports = {
     run: async (client, interaction) => {
         const volume = interaction.options.getNumber('volume');
 
-        // Check if the volume is within valid range
         if (volume < 0 || volume > 100) {
             return interaction.reply({ content: 'Volume must be between 0 and 100.', ephemeral: true });
         }

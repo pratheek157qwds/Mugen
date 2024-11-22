@@ -5,7 +5,7 @@ module.exports = {
     name: 'leave',
     description: 'Leaves the voice channel',
     inVoice: false,
-    sameVoice: true,  // Ensures the user is in the same voice channel as the bot
+    sameVoice: true,
     player: false,
 
     run: async (client, interaction) => {

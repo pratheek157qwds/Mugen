@@ -14,9 +14,8 @@ module.exports = {
   ],
 
   async run(client, interaction) {
-    const clientColor = client.color || '#FFFFFF'; // Set a default color if client.color is undefined
+    const clientColor = client.color || '#FFFFFF';
 
-    // Error Handling: Ensure interaction.member is defined
     if (!interaction.member) {
       return interaction.reply({
         embeds: [new EmbedBuilder()
@@ -28,7 +27,6 @@ module.exports = {
       });
     }
 
-    // Permission Checks (Updated for PermissionsBitField)
     if (!interaction.member.permissions.has(PermissionsBitField.Flags.DeafenMembers)) {
       return interaction.reply({
         embeds: [new EmbedBuilder()
@@ -64,7 +62,6 @@ module.exports = {
 
     const member = interaction.options.getMember('user');
 
-    // Check if member is valid and in the same voice channel
     if (!member || !member.voice.channel || member.voice.channel.id !== interaction.member.voice.channel.id) {
       return interaction.reply({
         embeds: [new EmbedBuilder()
@@ -77,7 +74,7 @@ module.exports = {
     }
 
     try {
-      await member.voice.setDeaf(false, `${interaction.user.tag} (${interaction.user.id})`); // Log the action
+      await member.voice.setDeaf(false, `${interaction.user.tag} (${interaction.user.id})`);
       return interaction.reply({
         embeds: [new EmbedBuilder()
           .setColor(clientColor)
@@ -85,7 +82,7 @@ module.exports = {
         ]
       });
     } catch (err) {
-      console.error("Error undeafening member:", err); // Log the error for debugging
+      console.error("Error undeafening member:", err);
       return interaction.reply({
         embeds: [new EmbedBuilder()
           .setColor(clientColor)

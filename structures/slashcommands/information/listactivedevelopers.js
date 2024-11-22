@@ -36,7 +36,7 @@ module.exports = {
       });
     }
 
-    const ITEMS_PER_PAGE = 8; // Reducing the number of developers per page to 8
+    const ITEMS_PER_PAGE = 8;
     const totalPages = Math.ceil(developers.length / ITEMS_PER_PAGE);
     let currentPage = 0;
 

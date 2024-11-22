@@ -9,7 +9,7 @@ module.exports = {
     options: [
         {
             name: 'number',
-            type: 4, // Correct type for INTEGER
+            type: 4,
             description: 'The number of tracks to skip',
             required: true,
         }

@@ -24,10 +24,9 @@ module.exports = {
         }
 
         const voiceChannel = interaction.guild.channels.cache.get(player.voiceChannel);
-        const currentPosition = player.position; // Current position in the track in milliseconds
-        const trackLength = player.current.info.length; // Track length in milliseconds
+        const currentPosition = player.position;
+        const trackLength = player.current.info.length;
 
-        // Function to format milliseconds to MM:SS
         const formatTime = (ms) => {
             const minutes = Math.floor(ms / 60000);
             const seconds = Math.floor((ms % 60000) / 1000).toString().padStart(2, '0');

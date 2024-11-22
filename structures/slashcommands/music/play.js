@@ -54,7 +54,6 @@ module.exports = {
 
             player.queue.add(track);
 
-            // Convert duration to minutes and seconds
             const minutes = Math.floor(track.info.length / 60000);
             const seconds = Math.floor((track.info.length % 60000) / 1000).toString().padStart(2, '0');
 
@@ -68,7 +67,6 @@ module.exports = {
                 )
                 .setTimestamp();
 
-            // Set the track thumbnail if available, otherwise use the requester's avatar
             const thumbnail = typeof track.info.thumbnail === 'string' && track.info.thumbnail.trim() !== ''
                 ? track.info.thumbnail
                 : interaction.member.user.displayAvatarURL({ dynamic: true, size: 1024 });

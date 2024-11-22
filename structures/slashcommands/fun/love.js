@@ -33,7 +33,7 @@ module.exports = {
           .setColor("Random")
           .setDescription(`${interaction.user.username} + ${user} = ${love}% love!`)
           .setThumbnail(`${user.displayAvatarURL({dynamic: true})}`)
-          .setImage(hugImage.url) // Using a hug image seems out of place here, consider removing or replacing.
+          .setImage(hugImage.url)
           .setTimestamp();
         return interaction.reply({ embeds: [loveEmbed] });
       }
