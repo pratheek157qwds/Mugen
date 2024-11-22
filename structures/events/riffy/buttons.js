@@ -83,7 +83,7 @@ client.on('interactionCreate', async (interaction) => {
         await interaction.deferUpdate();
 
         let volume = player.volume;
-        volume = Math.min(100, volume + 20); // Ensure volume doesn't exceed 100
+        volume = Math.min(100, volume + 20);
         player.setVolume(volume);
 
         return interaction.followUp({ content: `Volume increased to ${volume}%`, ephemeral: true });
@@ -92,7 +92,7 @@ client.on('interactionCreate', async (interaction) => {
         await interaction.deferUpdate();
 
         let volume = player.volume;
-        volume = Math.max(0, volume - 20); // Ensure volume doesn't go below 0
+        volume = Math.max(0, volume - 20);
         player.setVolume(volume);
 
         return interaction.followUp({ content: `Volume decreased to ${volume}%`, ephemeral: true });

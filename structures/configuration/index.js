@@ -2,7 +2,7 @@ module.exports = {
     client_token: "",
     client_id: "",
     client_prefix: ".",
-    mongodb_url: "", //optional
+    mongodb_url: "",
     developers: ["744557711513092098"],
     sharding: true,
     database: false,

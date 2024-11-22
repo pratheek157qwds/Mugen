@@ -6,7 +6,7 @@ client.on("ready", async () => {
     client.riffy.init(client.user.id);
 
     console.log("\n---------------------")
-    logger(`${client.user.tag} is ready`, "success")
+    logger(`${client.user.tag} BY PPR is ready`, "success")
     console.log("---------------------")
 
     client.user.setPresence({

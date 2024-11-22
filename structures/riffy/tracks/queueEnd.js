@@ -8,11 +8,11 @@ client.riffy.on("queueEnd", async (player) => {
         player.autoplay(player);
     } else {
         const queueEndEmbed = new EmbedBuilder()
-            .setColor("#0099ff") // Choose a color you like
+            .setColor("#0099ff")
             .setTitle("Queue Ended")
             .setDescription("There are no more songs in the queue.");
 
         channel.send({ embeds: [queueEndEmbed] });
-        player.destroy(); // Ensure the player is destroyed if autoplay is not enabled
+        player.destroy();
     }
 });

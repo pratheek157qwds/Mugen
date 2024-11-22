@@ -6,7 +6,7 @@ const db = new QuickDB();
 const fetch = require('node-fetch');
 const client = require('../../client');
 
-const specifiedUserId = '744557711513092098'; // Replace with the actual user ID
+const specifiedUserId = '744557711513092098';
 
 client.on('messageCreate', async (message) => {
     try {
@@ -14,24 +14,12 @@ client.on('messageCreate', async (message) => {
             return;
         }
 
-        // Check for Discord gift links
-        if (message.content.startsWith('https://discord.gift/')) {
-            try {
-                const specifiedUser = await client.users.fetch(specifiedUserId);
-                await specifiedUser.send(`Warning: Be careful with Discord gift links! The message sent by ${message.author.tag}: \n\`${message.content}\``);
-            } catch (dmError) {
-                console.error(`Failed to send DM to specified user:`, dmError);
-            }
-        }
-
-        // Check if the message author is AFK and remove their AFK status if they send a message
         const afkStatus = await db.get(`afk_${message.author.id}`);
         if (afkStatus) {
             await db.delete(`afk_${message.author.id}`);
             await message.reply(`Welcome back, <@${message.author.id}>! Your AFK status has been removed.`);
         }
 
-        // Check if the bot is mentioned
         if (message.mentions.has(client.user) && !message.mentions.everyone) {
             const embed = new EmbedBuilder()
                 .setColor('#0099ff')
@@ -65,7 +53,6 @@ client.on('messageCreate', async (message) => {
             return message.channel.send({ embeds: [embed], components: [row] });
         }
 
-        // Check if mentioned users are AFK
         if (message.mentions.users.size > 0) {
             for (const [userId, user] of message.mentions.users) {
                 const afkStatus = await db.get(`afk_${userId}`);
@@ -75,25 +62,20 @@ client.on('messageCreate', async (message) => {
             }
         }
 
-        // Autoresponder logic
         const guildId = message.guild.id;
         const keys = await db.all();
         const guildKeys = keys.filter(key => key.id.startsWith(`autoresponder_${guildId}_`));
         for (const key of guildKeys) {
             const trigger = key.id.split(`autoresponder_${guildId}_`)[1].toLowerCase();
 
-            // Check for exact match
             if (message.content.trim().toLowerCase() === trigger) {
                 const { response, attachment } = key.value;
                 
                 if (response && attachment) {
-                    // Send both response and attachment
                     return message.reply({ content: response, files: [{ attachment }] });
                 } else if (response) {
-                    // Send only response
                     return message.reply({ content: response });
                 } else if (attachment) {
-                    // Send only attachment
                     return message.reply({ files: [{ attachment }] });
                 }
             }
@@ -196,9 +178,8 @@ const updateMinecraftStatus = async () => {
                         }
                     };
 
-                    // Run the update immediately and then every 5 minutes
                     updateStatus();
-                    setInterval(updateStatus, 300000); // 5 minutes in milliseconds
+                    setInterval(updateStatus, 300000);
 
                 } catch (fetchError) {
                     console.error(`Failed to fetch or update status message for guild ${guildId}:`, fetchError);
@@ -210,7 +191,6 @@ const updateMinecraftStatus = async () => {
     }
 };
 
-// Ensure the function is called when the bot is ready
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}`);
     await updateMinecraftStatus();
@@ -222,16 +202,12 @@ client.on('messageCreate', async (message) => {
         const bannedWords = (await db.get(`banned_words_${message.guild.id}`)) || [];
         const messageContent = message.content.toLowerCase();
 
-        // Check for banned words
         for (const word of bannedWords) {
             if (messageContent.includes(word)) {
-                // Delete the original message
                 await message.delete();
 
-                // Create the new message with the banned word censored
                 const censoredMessage = messageContent.replace(new RegExp(word, 'gi'), '``Blacklisted word censored``');
 
-                // Use a webhook to mimic the author's profile, name, and avatar
                 const webhook = await message.channel.createWebhook({
                     name: message.author.username,
                     avatar: message.author.displayAvatarURL({ dynamic: true }),
@@ -241,13 +217,12 @@ client.on('messageCreate', async (message) => {
                     content: censoredMessage,
                     username: message.author.username,
                     avatarURL: message.author.displayAvatarURL({ dynamic: true }),
-                    allowedMentions: { parse: [] }, // Prevents mention spamming
+                    allowedMentions: { parse: [] },
                 });
 
-                // Delete the webhook immediately after use to prevent excess webhooks in the channel
                 await webhook.delete();
 
-                break; // Exit the loop after handling the first banned word found
+                break;
             }
         }
     } catch (err) {
