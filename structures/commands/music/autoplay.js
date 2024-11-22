@@ -4,7 +4,7 @@ module.exports = {
     name: 'autoplay',
     description: 'Toggle autoplay mode',
     inVoice: true,
-    aliases: ['ap'], // Adding 'ap' as an alias
+    aliases: ['ap'],
 
     /**
      * @param {Client} client 
@@ -12,22 +12,20 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async (client, message, args) => {
-        // Check if there is an active player in the guild
         const player = client.riffy.players.get(message.guild.id);
         if (!player) {
             return message.reply('There is no active player in this guild.');
         }
 
-        // Create embed templates
         const enabledEmbed = new EmbedBuilder()
-            .setColor("#2f3136") // Green for enabled
+            .setColor("#2f3136")
             .setDescription("<a:mugen_on:1276591628584222832> Autoplay has been enabled.");
 
         const disabledEmbed = new EmbedBuilder()
-            .setColor("#2f3136") // Red for disabled
+            .setColor("#2f3136")
             .setDescription("<a:mugen_off:1276589039708803153> Autoplay has been disabled.");
 
-        // Toggle autoplay mode
+        
         if (player.isAutoplay) {
             player.isAutoplay = false;
             return message.channel.send({ embeds: [disabledEmbed] });
