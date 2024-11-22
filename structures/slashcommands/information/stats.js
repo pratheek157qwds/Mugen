@@ -10,13 +10,11 @@ module.exports = {
   async run(client, interaction) {
     const clientColor = client.color || '#FFFFFF'; 
 
-    // Bot Statistics
     const uptime = Math.round(process.uptime() * 1000); 
     const guilds = client.guilds.cache.size;
     const members = client.users.cache.size;
     const channels = client.channels.cache.size;
     
-    // System Statistics
     const totalMemoryBytes = os.totalmem();
     const cpuCount = os.cpus().length;
     const freeMemoryBytes = os.freemem();
@@ -26,7 +24,6 @@ module.exports = {
     const processors = os.cpus();
     const cpuUsage = process.cpuUsage();
 
-    // Combined Stats Embed
     const embed = new EmbedBuilder()
       .setColor(clientColor)
       .setTitle('lord Information')
@@ -51,7 +48,7 @@ module.exports = {
           Processor Speed: ${processors[0].speed} MHz
         `}
       ])
-      .setTimestamp() // Adds a timestamp to the embed
+      .setTimestamp()
       .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() });
 
     interaction.reply({ embeds: [embed] }); 

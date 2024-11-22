@@ -1,6 +1,6 @@
 const { Client, ApplicationCommandOptionType, PermissionsBitField, CommandInteraction, EmbedBuilder } = require("discord.js");
 const config = require("../../configuration/index");
-const neko = new (require('nekos.life'))(); // Create an instance of the neko.life client
+const neko = new (require('nekos.life'))();
 
 module.exports = {
   name: "slap",
@@ -20,12 +20,10 @@ module.exports = {
    */
 
   run: async (client, interaction) => {
-    // Permission Check: Ensure the bot has permission to send messages
     if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.SendMessages)) {
       return interaction.reply({ content: `I don't have permission to send messages in this channel.`, ephemeral: true });
     }
 
-    // Owner/Permission Check: Allow only owners or users with "Send Messages" permission
     if (
       !config.developers.includes(interaction.user.id) && 
       !interaction.member?.permissions.has(PermissionsBitField.Flags.SendMessages)

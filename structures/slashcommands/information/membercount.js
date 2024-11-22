@@ -1,7 +1,7 @@
 const { Client, ApplicationCommandOptionType, PermissionsBitField, EmbedBuilder } = require('discord.js');
 
 module.exports = {
-  name: 'membercount', // Command name (v12 and below)
+  name: 'membercount',
   description: 'Displays member count and status distribution in the guild',
 
   async run(client, interaction) {
@@ -32,7 +32,6 @@ module.exports = {
           `)
           .setThumbnail(guildIcon);
 
-        // Edit the initial reply or send a new reply if none exists
         if (interaction.replied || interaction.deferred) {
           interaction.editReply({ embeds: [embed] });
         } else {
@@ -40,7 +39,6 @@ module.exports = {
         }
       };
 
-      // Initial count and presence update listener
       updateCounts();
 
       const presenceUpdateListener = (oldPresence, newPresence) => {
@@ -50,7 +48,6 @@ module.exports = {
 
       client.on('presenceUpdate', presenceUpdateListener);
 
-      // No automatic message deletion here 
 
     } catch (error) {
       console.error('Error handling member count command:', error);

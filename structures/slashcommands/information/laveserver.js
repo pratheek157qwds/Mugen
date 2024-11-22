@@ -1,10 +1,10 @@
 const { CommandInteraction, Client, ApplicationCommandOptionType } = require('discord.js');
-const config = require('../../configuration/index'); // Assuming you have a config file with developer IDs
+const config = require('../../configuration/index');
 
 module.exports = {
     name: 'leaveserver',
     description: 'Leave a server.',
-    botPermissions: ['EMBED_LINKS'], // Adjust as needed
+    botPermissions: ['EMBED_LINKS'],
     options: [
         {
             name: 'server_id',
@@ -20,7 +20,6 @@ module.exports = {
     run: async (client, interaction) => {
         await interaction.deferReply({ ephemeral: true });
 
-        // Check if the user is authorized (is a developer)
         if (!config.developers.includes(interaction.user.id)) {
             return interaction.editReply({
                 content: 'You are not authorized to use this command.',

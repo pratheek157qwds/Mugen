@@ -27,8 +27,8 @@ module.exports = {
         const member = interaction.options.getMember('member');
         const reason = interaction.options.getString('reason') || 'No reason provided';
         const moderator = interaction.user.tag;
-        const moderatorMention = `<@${interaction.user.id}>`; // Mention the moderator
-        const moderatorProfileURL = `https://discord.com/users/${interaction.user.id}`; // Profile link
+        const moderatorMention = `<@${interaction.user.id}>`;
+        const moderatorProfileURL = `https://discord.com/users/${interaction.user.id}`;
         const serverName = interaction.guild.name;
         const currentTime = new Date().toLocaleString();
 
@@ -42,7 +42,6 @@ module.exports = {
             "Stay in your lane! You can't use this command."
         ];
 
-        // Check if the user has the ban members permission
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
             const abusiveReply = abusiveReplies[Math.floor(Math.random() * abusiveReplies.length)];
             return interaction.reply({
@@ -55,14 +54,11 @@ module.exports = {
             });
         }
 
-        // Acknowledge the interaction immediately
         await interaction.deferReply();
 
         try {
-            // Fetch the bot's member object
             const botMember = await interaction.guild.members.fetch(client.user.id);
 
-            // Check if bot has necessary permissions
             if (!botMember.permissions.has(PermissionsBitField.Flags.BanMembers)) {
                 return interaction.followUp({
                     embeds: [{
@@ -73,7 +69,6 @@ module.exports = {
                 });
             }
 
-            // Check if the member is bannable by the bot
             if (!member || !member.bannable) {
                 return interaction.followUp({
                     embeds: [{
@@ -84,7 +79,6 @@ module.exports = {
                 });
             }
 
-            // Create the DM embed
             const banEmbed = new EmbedBuilder()
                 .setColor(0xFF0000)
                 .setTitle('Mugen Ban Tool')
@@ -94,20 +88,18 @@ module.exports = {
                     { name: 'Reason', value: reason, inline: true },
                     { 
                         name: 'Moderator', 
-                        value: `${moderatorMention}\n[${moderator}](${moderatorProfileURL})`, // Mention and clickable profile link
+                        value: `${moderatorMention}\n[${moderator}](${moderatorProfileURL})`,
                         inline: true 
                     }
                 )
                 .setFooter({ text: `Banned from ${serverName} | Developed by pratheek reddy • ${currentTime}` });
 
-            // Send a DM to the banned member
             try {
                 await member.send({ embeds: [banEmbed] });
             } catch (error) {
                 console.error(`Could not send a DM to ${member.user.tag}:`, error);
             }
 
-            // Ban the member
             await member.ban({ reason });
 
             await interaction.followUp({

@@ -6,12 +6,10 @@ module.exports = {
     description: "Shows the list of banned members",
 
     run: async (client, interaction) => {
-        // Check if the bot has Administrator permissions
         if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.Administrator)) {
             return interaction.reply({ content: "❌ I don't have the necessary permissions (Administrator) to view the ban list.", ephemeral: true });
         }
         
-        // Check if the user is the bot owner or has Administrator permissions
         if (!config.developers.includes(interaction.user.id) && !interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
             return interaction.reply({ content: "❌ You don't have permission to use this command.", ephemeral: true });
         }
@@ -33,7 +31,7 @@ module.exports = {
 
             interaction.reply({ embeds: [embed], ephemeral: true });
         } catch (error) {
-            console.error("Error fetching ban list:", error); // Log any errors to the console
+            console.error("Error fetching ban list:", error);
             interaction.reply({ content: "An error occurred while fetching the ban list.", ephemeral: true });
         }
     }

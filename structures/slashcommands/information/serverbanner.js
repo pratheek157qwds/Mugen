@@ -6,7 +6,7 @@ module.exports = {
     category: 'info',
 
     run: async (client, interaction) => {
-        const clientColor = client.color || '#2f3136'; // Set a default color if client.color is undefined
+        const clientColor = client.color || '#2f3136';
 
         if (interaction.guild.banner) {
             const embed = new EmbedBuilder()

@@ -7,16 +7,14 @@ module.exports = {
     options: [],
 
     run: async (client, interaction) => {
-        const clientColor = client.color || '#FFFFFF'; // Set a default color if client.color is undefined
+        const clientColor = client.color || '#FFFFFF';
 
-        // Fetch the first message in the channel
         const fetchMessages = await interaction.channel.messages.fetch({
             after: 1,
             limit: 1
         });
         const msg = fetchMessages.first();
 
-        // If no message is found
         if (!msg) {
             return interaction.reply({
                 embeds: [
@@ -29,7 +27,6 @@ module.exports = {
             });
         }
 
-        // Create the embed for the first message
         const embed = new EmbedBuilder()
             .setTitle(`First Message in ${interaction.guild.name}`)
             .setURL(msg.url)
@@ -41,7 +38,6 @@ module.exports = {
             )
             .setColor(clientColor);
 
-        // Send the embed
         interaction.reply({ embeds: [embed] });
     }
 };

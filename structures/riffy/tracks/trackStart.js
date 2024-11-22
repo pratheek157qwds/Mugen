@@ -23,12 +23,12 @@ client.riffy.on('trackStart', async (player, track) => {
             new ButtonBuilder()
                 .setCustomId('volume_down')
                 .setStyle(ButtonStyle.Secondary)
-                .setEmoji('<:volumedown:1224269238190080040>'), // Volume down emoji
+                .setEmoji('<:volumedown:1224269238190080040>'),
 
             new ButtonBuilder()
                 .setCustomId('volume_up')
                 .setStyle(ButtonStyle.Secondary)
-                .setEmoji('<:volumeup:1224268333856063539>') // Volume up emoji
+                .setEmoji('<:volumeup:1224268333856063539>')
         );
 
     const channel = client.channels.cache.get(player.textChannel);
